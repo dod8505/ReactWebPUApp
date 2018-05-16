@@ -3,6 +3,7 @@ import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import LocationList from './components/LocationList';
+import ForecastExtended from './components/ForecastExtended';
 import './App.css';
 
 const cities = [
@@ -14,7 +15,23 @@ const cities = [
 
 
 class App extends Component {
+
+  constructor(){
+  	super();
+  	this.state = {
+  		city: null
+  	};
+  }
+
+  handleSelectionLocation = city => {
+  	this.setState( { city } );
+  	console.log(`handleSelectionLocation ${city}`);
+  }	
+
   render() {
+
+  	const { city } = this.state;
+
     return (
       <MuiThemeProvider>
 	      <Grid>
@@ -36,11 +53,16 @@ class App extends Component {
 	        </Row>
 	       	<Row className="show-grid">
 	       		<Col xs={12} md={6}>
-	        		<LocationList cities={cities}></LocationList>
+	        		<LocationList cities={cities} onSelectedLocation={this.handleSelectionLocation}></LocationList>
 	        	</Col>
 	        	<Col xs={12} md={6}>
 	        		<Paper zDepth={4}>
-	        			<div className="detail"></div>
+	        			<div className="detail">
+	        			 {
+	        			 	city &&
+	        			 	<ForecastExtended city={city}></ForecastExtended>
+	        			 }
+	        			</div>
 	        		</Paper>
 	        	</Col>
 	      	</Row>
