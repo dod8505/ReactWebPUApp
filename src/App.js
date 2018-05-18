@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {createStore} from 'redux';
+import { connect } from 'react-redux';
 import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import LocationList from './components/LocationList';
 import ForecastExtended from './components/ForecastExtended';
+import {setCity} from './actions';
 import './App.css';
 
 const cities = [
@@ -13,9 +14,6 @@ const cities = [
 'Santiago, CL',
 'Madrid, ES'
 ];
-
-const store  = createStore (() =>{},
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) ;
 
 class App extends Component {
 
@@ -29,8 +27,7 @@ class App extends Component {
   handleSelectionLocation = city => {
   	this.setState( { city } );
   	console.log(`handleSelectionLocation ${city}`);
-  	const action = {type: 'setCity', value: city};
-  	store.dispatch(action);
+  	store.dispatch(setCity(city));
   }	
 
   render() {
