@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
-import LocationList from './components/LocationList';
+import LocationListContainer from './containers/LocationListContainer';
 import ForecastExtended from './components/ForecastExtended';
-import {setCity} from './actions';
 import './App.css';
 
 const cities = [
@@ -23,12 +21,6 @@ class App extends Component {
   		city: null
   	};
   }
-
-  handleSelectionLocation = city => {
-  	this.setState( { city } );
-  	console.log(`handleSelectionLocation ${city}`);
-  	store.dispatch(setCity(city));
-  }	
 
   render() {
 
@@ -55,7 +47,7 @@ class App extends Component {
 	        </Row>
 	       	<Row className="show-grid">
 	       		<Col xs={12} md={6}>
-	        		<LocationList cities={cities} onSelectedLocation={this.handleSelectionLocation}></LocationList>
+	        		<LocationListContainer cities={cities}></LocationListContainer>
 	        	</Col>
 	        	<Col xs={12} md={6}>
 	        		<Paper zDepth={4}>
@@ -72,6 +64,6 @@ class App extends Component {
       </MuiThemeProvider>
     );
   }
-}
+} 
 
 export default App;
